@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Telegram Mini Game</title>
+  <!-- Подключаем Telegram Web App SDK -->
+  <script src="https://telegram.org/js/telegram-web-app.js"></script>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      background-color: var(--tg-theme-bg-color, #ffffff);
+      color: var(--tg-theme-text-color, #000000);
+      margin: 0;
+      padding: 20px;
+    }
+    .click-btn {
+      padding: 20px 40px;
+      font-size: 24px;
+      background-color: var(--tg-theme-button-color, #2481cc);
+      color: var(--tg-theme-button-text-color, #ffffff);
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      margin-top: 20px;
+    }
+    .click-btn:active {
+      transform: scale(0.95);
+    }
+  </style>
+</head>
+<body>
+  <h1>🎮 Моя Кликер Игра</h1>
+  <p>Счет: <span id="score">0</span></p>
+  <button class="click-btn" id="tapBtn">ЖМИ!</button>
+
+  <script>
+    const tg = window.Telegram.WebApp;
+    tg.expand(); // Разворачиваем приложение на весь экран
+
+    let score = 0;
+    const scoreEl = document.getElementById('score');
+
+    document.getElementById('tapBtn').addEventListener('click', () => {
+      score++;
+      scoreEl.textContent = score;
+
+      // Отправляем вибрацию при клике (если поддерживается устройством)
+      if (tg.HapticFeedback) {
+        tg.HapticFeedback.impactOccurred('medium');
+      }
+    });
+  </script>
+</body>
+</html>
